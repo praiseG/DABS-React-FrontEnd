@@ -1,0 +1,24 @@
+
+POST http://localhost:8003/api/auth/token/ HTTP/1.1
+content-type: application/json
+
+{
+    "email": "d@dabs.com",
+    "password": "godogood"
+}
+
+###
+POST http://localhost:8003/api/verify/token/ HTTP/1.1
+content-type: application/json
+
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InByYWlzZUBkYWJzLmNvbSIsImV4cCI6MTUzNjE1NTM4NiwidXNlcl9pZCI6MywiZW1haWwiOiJwcmFpc2VAZGFicy5jb20ifQ.GhTTtDCz3ElnC8HtHFrei6FHK6m__Va1xVOVY5jJw4k"
+}
+
+###
+POST http://localhost:8003/api/refresh/token/ HTTP/1.1
+content-type: application/json
+
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InByYWlzZUBkYWJzLmNvbSIsImV4cCI6MTUzNjE1NTM4NiwidXNlcl9pZCI6MywiZW1haWwiOiJwcmFpc2VAZGFicy5jb20ifQ.GhTTtDCz3ElnC8HtHFrei6FHK6m__Va1xVOVY5jJw4k"
+}
