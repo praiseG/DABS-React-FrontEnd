@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PatientItem from './PatientItem';
+import AddPAtient from './AddPatient';
 
 export default class Patients extends Component {
     deletePatient = (name) => {
@@ -16,6 +17,7 @@ export default class Patients extends Component {
         }
         return(
             <div>
+                <AddPAtient />
                 {patientItems}
             </div>
         );

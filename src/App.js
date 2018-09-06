@@ -2,24 +2,25 @@ import React, { Component } from 'react';
 import { BrowserRouter  as Router, Route } from 'react-router-dom';
 
 import './App.css';
-import Accounts from './Accounts/Accounts';
-import Patients from './Patients/Patients';
-import AddPaint from './Patients/AddPatient';
-import Appointments from './Appointments/Appointments';
+
 import Header from './Layouts/Header';
-import Navigation from './Layouts/Navigation';
-import Footer from './Layouts/Footer';
 import Login from './Authentication/Login';
+import Dashboard from './Layouts/Dashboard';
 
 
 class App extends Component {
  state = {
       patients: [],
-      year: "2018"
+      year: "2018",
+      username: undefined
   }
   
+  // getloggedInUser = () => {
+  //   let username = localStorage.getItem("username");
+  //   username && this.setState({username: username});
+  // } 
 
-  getPatients(){
+  getPatients = () => {
     this.setState({
       patients: [
         {
@@ -51,6 +52,7 @@ class App extends Component {
   }
 
   componentWillMount(){
+    // this.getloggedInUser();
     this.getPatients();
     this.getAccounts();
   }
@@ -73,24 +75,17 @@ class App extends Component {
   }
   render() {
     return (
-      <Router>
         <React.Fragment>
-        <Route path="/" exact strict Component={Login} />
-        <Route path="/appointments" exact strict Component={Appointments} />
-        <Route path="/accounts" exact strict Component={Accounts} />
-        <Route path="/patients" exact strict Component={Patients} />
-          {/* <Header /> */}
-          {/* <Navigation /> */}
-          {/* <div className="container"> */}
-            {/* <Accounts /> */}
-            {/* <AddPaint addPatient={this.handleAddPatient}/> */}
-            {/* <Patients patients={this.state.patients} onDelete={this.handleDeletePatient} /> */}
-            {/* <Appointments /> */}
-          {/* </div> */}
-          {/* <Footer year={this.state.year}/> */}
-          <Login />
+        <Header user={this.state.username}/>
+        <Login />
+        <Router>
+          <React.Fragment>
+            <Route path="/" exact strict Component={Dashboard} />
+            <Route path="/dashboard" exact strict Component={Dashboard} />
+            <Route path="/login" exact strict Component={Login} />
+          </React.Fragment>
+        </Router>
         </React.Fragment>
-      </Router>
     );
   }
 }

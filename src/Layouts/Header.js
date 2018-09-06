@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Layouts.css'
 import logo from '../images/logo.png'
-import { Link } from 'react-router-dom';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 export default class Header extends Component {
     render(){
@@ -11,20 +11,24 @@ export default class Header extends Component {
                 <button className="navbar-toggler" type="button" data-target="#navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="collapse navbar-collapse">
-                    <ul className="navbar-nav">
-                        <li className="nav-item active">
-                            <a href="" className="nav-link"><strong>DABS</strong></a>
-                        </li>
-                        <li className="nav-item dropdown pull-right">
-                            <a className="nav-link dropdown-toggle" href="" id="navdrop" role="button" data-toggle="dropdown" data-hover="dropdown">User</a>
+                <div className="collapse navbar-collapse" id="navbarText">
+                    <span className="navbar-text text-white">
+                        <strong>DABS</strong>
+                    </span>
+                    <ul className="navbar-nav ml-auto">
+                        <li>&nbsp;</li>
+                        {this.props.user && (
+                        <li className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle text-white" href="" id="navdrop" role="button" data-toggle="dropdown" data-hover="dropdown">{this.props.user}</a>
                             <div className="dropdown-menu" aria-labelledby="navdrop">
-                                <Link to="/profile" className="dropdown-item">Profile</Link>
-                                <Link  to="/logout" className="dropdown-item">Logout</Link>
+                                <Router>
+                                    <React.Fragment>
+                                        <Link to="/profile" className="dropdown-item">Profile</Link>
+                                        <Link  to="/logout" className="dropdown-item">Logout</Link>
+                                    </React.Fragment>
+                                </Router>
                             </div>
-                            
-                        </li>
-                      
+                        </li>)}                     
                     </ul>
                 </div>
             </nav>
