@@ -5,10 +5,14 @@
   width:100%;
   min-height:100vh;
 }
-.container {
+.container, .container-fluid {
   max-width: 830px !important;
 }
 
 .container-dabs{
   height: 580px !important;
+}
+
+.hide-form{
+  display: none;
 }

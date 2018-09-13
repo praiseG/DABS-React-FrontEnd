@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { BrowserRouter  as Router, Route } from 'react-router-dom';
+import { BrowserRouter  as Router, Route, Redirect } from 'react-router-dom';
 
 import './App.css';
 
-import Header from './Layouts/Header';
-import Login from './Authentication/Login';
-import Dashboard from './Layouts/Dashboard';
+import Header from './Components/Layouts/Header';
+import Dashboard from './Components/Layouts/Dashboard';
+import Login from './Components/Authentication/Login';
+import Logout from './Components/Authentication/Logout';
 
 
 class App extends Component {
@@ -15,10 +16,14 @@ class App extends Component {
       username: undefined
   }
   
-  // getloggedInUser = () => {
-  //   let username = localStorage.getItem("username");
-  //   username && this.setState({username: username});
-  // } 
+  setLoggedInUser = (username) => {
+    username && this.setState({username: username});
+  } 
+
+  isAuthenticated = () => {
+    const token = localStorage.getItem("token");
+    return token && token.length > 30;
+  }
 
   getPatients = () => {
     this.setState({
@@ -74,18 +79,20 @@ class App extends Component {
 
   }
   render() {
+    let isLoggedin = this.isAuthenticated();
+
     return (
+      <Router>
         <React.Fragment>
-        <Header user={this.state.username}/>
-        <Login />
-        <Router>
-          <React.Fragment>
-            <Route path="/" exact strict Component={Dashboard} />
-            <Route path="/dashboard" exact strict Component={Dashboard} />
-            <Route path="/login" exact strict Component={Login} />
+          <Header user={this.state.username}/>
+          {/* <Login setLoggedInUser={this.setLoggedInUser}/> */}
+          {!isLoggedin && <Redirect to={{pathname: "/login"}} />}
+          <Route exact path="/" render={props => <Dashboard {...props} year={this.state.year} />} />
+          <Route path="/login" exact strict render={props => <Login {...props} setLoggedInUser={this.setLoggedInUser}/>} />
+          <Route path="/logout" exact component={Logout} />
+          {/* <Route path="/patients" exact component={Logout} /> */}
           </React.Fragment>
         </Router>
-        </React.Fragment>
     );
   }
 }
