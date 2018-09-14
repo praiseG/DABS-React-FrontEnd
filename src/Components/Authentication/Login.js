@@ -34,6 +34,7 @@ export default class Login extends Component {
                     localStorage.setItem("username", credentials.email);
                     this.props.setLoggedInUser(credentials.email);
                     this.setState({errorMessage: undefined});
+                    this.props.history.replace("/");
                     break
                 case 400:
                     this.setState({errorMessage: parsedJSON.non_field_errors[0]});
